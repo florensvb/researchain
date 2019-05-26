@@ -20,3 +20,6 @@ packages/truffle-debugger/.tmp
 
 # truffle-contract
 packages/truffle-contract/dist
+
+.env
+.idea
