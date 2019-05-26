@@ -5,7 +5,9 @@ import VueRouter from 'vue-router';
 import Web3 from 'web3';
 
 const web3 = new Web3('ws://localhost:7545');
-console.log(web3);
+const abi = require('./ABIs/Papers.js').default;
+const papersContract = new web3.eth.Contract(abi, 0xee52a37bEFf7cBD9E64bBc7E6cb7761284DB733a);
+papersContract.methods.papers().call(0x720cC2afC99e3459534c66A389774c983d14a8a2).then(console.log);
 
 Vue.use(VueRouter);
 
