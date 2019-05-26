@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import Vue from 'vue'
 import './plugins/vuetify'
 import App from './App.vue'
@@ -6,8 +8,9 @@ import Web3 from 'web3';
 
 const web3 = new Web3('ws://localhost:7545');
 const abi = require('./ABIs/Papers.js').default;
-const papersContract = new web3.eth.Contract(abi, 0xee52a37bEFf7cBD9E64bBc7E6cb7761284DB733a);
-papersContract.methods.papers().call(0x720cC2afC99e3459534c66A389774c983d14a8a2).then(console.log);
+const papersContract = new web3.eth.Contract(abi, process.env.VUE_APP_ADDRESS);
+papersContract.options.address = process.env.VUE_APP_ADDRESS;
+papersContract.methods.getPaper(0).call().then(console.log);
 
 Vue.use(VueRouter);
 

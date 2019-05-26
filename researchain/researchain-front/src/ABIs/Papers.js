@@ -3,11 +3,11 @@ export default [
     "constant": true,
     "inputs": [
       {
-        "name": "",
+        "name": "_index",
         "type": "uint256"
       }
     ],
-    "name": "papers",
+    "name": "getPaper",
     "outputs": [
       {
         "name": "title",

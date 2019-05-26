@@ -11,8 +11,11 @@ contract Papers {
         address owner;
     }
     
-    Paper[] public papers;
+    Paper[] private papers;
 
+    function getPaper(uint _index) public view returns (string memory title, address owner) {
+        return (papers[_index].title, papers[_index].owner);
+    }
     
     function setTitle(string memory _title) public {
         Titles[_title] = true;
