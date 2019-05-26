@@ -23,7 +23,8 @@ contract Papers {
     }
     
     function _createPaper(string memory _title) public {
-        require(!titleExists(_title));
+        require(!titleExists(_title), "A paper with this title already exists, dude.");
+        setTitle(_title);
         papers.push(Paper(_title, msg.sender));
     }
 }
