@@ -16,7 +16,10 @@ contract Papers {
     function getPaper(uint _index) public view returns (string memory title, address owner) {
         return (papers[_index].title, papers[_index].owner);
     }
-    
+
+    function lenPaper() public view returns(uint len){
+	return (papers.length);
+    }
     function setTitle(string memory _title) public {
         Titles[_title] = true;
     }
