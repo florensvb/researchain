@@ -23,6 +23,19 @@
           <span class="mr-2">Upload Paper</span>
         </v-btn>
       </v-flex>
+      <v-flex>
+        <v-text-field
+                label="id"
+                single-line
+                box
+                v-model="paperId"
+        ></v-text-field>
+      </v-flex>
+      <v-flex>
+        <v-btn color="teal accent-4" @click="qetSomePaper">
+          <span class="mr-2">Get Paper</span>
+        </v-btn>
+      </v-flex>
       <v-flex xs12>
         <v-btn @click="$refs.inputUpload.click()">Upload File</v-btn>
         <input v-show="false" ref="inputUpload" type="file" accept="application/pdf" @change="saveToIpfsWithFilename" >
@@ -35,6 +48,7 @@
   export default {
     data: () => ({
       title: '',
+      paperId:''
     }),
     methods: {
       createPaper() {
@@ -44,6 +58,15 @@
         } catch (e) {
           console.error(e);
         }
+      },
+      qetSomePaper(){
+        try{
+          this.papers.methods.getPaper(this.paperId).call().then(console.log)
+        }
+        catch(e){
+          console.error(e)
+        }
+
       },
       async saveToIpfsWithFilename ({ target: { files }}) {
         try {
