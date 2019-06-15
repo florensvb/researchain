@@ -2258,12 +2258,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x731dacDeD9E03A516190164D08c657013BC986D2",
-      "transactionHash": "0x5e038ec918f2ac9aef76e5705f1371fc5ec480aef8418c1465a87db1b1bcc67a"
+      "address": "0x1c68Cf95496a977e5f94F8CBCE9dc41a67dc87D6",
+      "transactionHash": "0x32bf5beecbbb679a8721e5ca5da0c16580da1e7814db7d0fc6f8b6d632cda546"
     }
   },
   "schemaVersion": "3.0.9",
-  "updatedAt": "2019-05-26T17:59:00.503Z",
+  "updatedAt": "2019-06-15T10:52:20.967Z",
   "devdoc": {
     "methods": {},
     "title": "Researchain Paper contract"
