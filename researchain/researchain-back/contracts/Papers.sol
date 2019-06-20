@@ -1,7 +1,7 @@
 // new version from Papers.sol
 pragma solidity >=0.4.21 <0.6.0;
 
-import "./ownable.sol";
+import "./Ownable.sol";
 
 /// @title Researchain Paper contract
 contract Papers is Ownable {
@@ -37,6 +37,7 @@ contract Papers is Ownable {
     }
 
     function getPaper(uint _id) public view returns (uint, string memory, string memory, uint, string memory, address) {
+        require(_id < papers.length, "id does not exist");
         return (_id, papers[_id].title, papers[_id].author, papers[_id].price, papers[_id].hash, papers[_id].owner);
     }
 

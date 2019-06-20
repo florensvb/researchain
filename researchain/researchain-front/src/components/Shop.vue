@@ -54,8 +54,6 @@
           </v-flex>
         </v-flex>
 
-
-
       </v-flex>
     </v-layout>
   </v-container>
@@ -121,7 +119,7 @@
       }
     },
     created() {
-      // this.ipfs.g
+
     }
   }
 </script>
