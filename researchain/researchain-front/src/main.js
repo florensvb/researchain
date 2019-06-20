@@ -18,7 +18,7 @@ web3.defaultGas = 900000;
 const abi = require('./ABIs/Papers.js').default;
 const papersContract = new web3.eth.Contract(abi, process.env.VUE_APP_ADDRESS);
 papersContract.options.address = process.env.VUE_APP_ADDRESS;
-Vue.prototype.papers = papersContract;
+Vue.prototype.paperContract = papersContract;
 
 Vue.use(VueRouter);
 

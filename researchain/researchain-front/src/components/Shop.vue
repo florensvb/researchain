@@ -25,23 +25,17 @@
       </v-flex>
 
       <v-flex xs12 style="text-align:left">
-        <v-btn color="teal accent-4" @click="qetSomePaper">
+        <v-btn color="teal accent-4" @click="getAllPapers">
           <span class="mr-2">Get Papers</span>
         </v-btn>
       </v-flex>
       <v-flex  id="papersFlex" style="white-space: nowrap; text-align:left">
-        <v-flex style="display:none" id="emptyFlex">
-          <v-flex xs12 md4 sm6 style="display:inline-block;margin-right: 30px;" >
-            <v-card>
-              <v-img
-                      src= 'https://cdn.vuetifyjs.com/images/cards/desert.jpg'
-                      aspect-ratio="2.75"
-              ></v-img>
-
+          <v-flex xs12>
+            <v-card v-for="paper in papers" :key="paper.id">
               <v-card-title primary-title>
                 <div>
-                  <h3 class="headline mb-0">##title##</h3>
-                  <div >Kangaroo Valley Safari</div>
+                  <h3 class="headline mb-0">{{paper[1]}}</h3>
+                  <div>{{paper[2]}}</div>
                 </div>
               </v-card-title>
 
@@ -50,54 +44,41 @@
                 <v-btn flat color="orange">Explore</v-btn>
               </v-card-actions>
             </v-card>
-
           </v-flex>
         </v-flex>
-
-      </v-flex>
     </v-layout>
   </v-container>
 
 </template>
 
 <script>
-  function showPaper(paper){
-    console.log(paper);
-    var text = document.getElementById('emptyFlex').innerHTML;
-    text = text.replace("##title##",paper.title).replace('##imageUrl##','');
-
-    var papersFlex = document.getElementById('papersFlex');
-    papersFlex.innerHTML+=text;
-  }
-
   export default {
     data: () => ({
       title: '',
-      paperId:''
+      paperId:'',
+      papers: [],
+      paperLength: 0,
     }),
     methods: {
+      getPaperLength() {
+        const length = 2;
+        this.paperLength = length;
+        return length;
+      },
 
       createPaper() {
         try {
-          this.papers.methods._createPaper(this.title).send()
+          this.paperContract.methods._createPaper(this.title).send()
             .then(console.log("creating paper done"));
         } catch (e) {
           console.error(e);
         }
       },
-      qetSomePaper(){
-        try{
-          var papersLen=2;//this.papers.methods.lenPaper().call().then(console.log);
-          var i;
-          for(i=0;i<papersLen;i++) {
-            this.papers.methods.getPaper(i).call().then(showPaper);
-          }
-
+      getAllPapers() {
+        for (let i = 0; i < this.paperLength; i++) {
+          this.paperContract.methods.getPaper(i).call()
+            .then(paper => this.papers.push(paper));
         }
-        catch(e){
-          console.error(e)
-        }
-
       },
       async saveToIpfsWithFilename ({ target: { files }}) {
         try {
@@ -118,8 +99,9 @@
         }
       }
     },
-    created() {
-
+    async created() {
+      await this.getPaperLength();
+      this.getAllPapers();
     }
   }
 </script>
