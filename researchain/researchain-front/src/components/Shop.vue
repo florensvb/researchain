@@ -23,34 +23,62 @@
           <span class="mr-2">Upload Paper</span>
         </v-btn>
       </v-flex>
-      <v-flex>
-        <v-text-field
-                label="id"
-                single-line
-                box
-                v-model="paperId"
-        ></v-text-field>
-      </v-flex>
-      <v-flex>
+
+      <v-flex xs12 style="text-align:left">
         <v-btn color="teal accent-4" @click="qetSomePaper">
-          <span class="mr-2">Get Paper</span>
+          <span class="mr-2">Get Papers</span>
         </v-btn>
       </v-flex>
-      <v-flex xs12>
-        <v-btn @click="$refs.inputUpload.click()">Upload File</v-btn>
-        <input v-show="false" ref="inputUpload" type="file" accept="application/pdf" @change="saveToIpfsWithFilename" >
+      <v-flex  id="papersFlex" style="white-space: nowrap; text-align:left">
+        <v-flex style="display:none" id="emptyFlex">
+          <v-flex xs12 md4 sm6 style="display:inline-block;margin-right: 30px;" >
+            <v-card>
+              <v-img
+                      src= 'https://cdn.vuetifyjs.com/images/cards/desert.jpg'
+                      aspect-ratio="2.75"
+              ></v-img>
+
+              <v-card-title primary-title>
+                <div>
+                  <h3 class="headline mb-0">##title##</h3>
+                  <div >Kangaroo Valley Safari</div>
+                </div>
+              </v-card-title>
+
+              <v-card-actions>
+                <v-btn flat color="orange">Share</v-btn>
+                <v-btn flat color="orange">Explore</v-btn>
+              </v-card-actions>
+            </v-card>
+
+          </v-flex>
+        </v-flex>
+
+
+
       </v-flex>
     </v-layout>
   </v-container>
+
 </template>
 
 <script>
+  function showPaper(paper){
+    console.log(paper);
+    var text = document.getElementById('emptyFlex').innerHTML;
+    text = text.replace("##title##",paper.title).replace('##imageUrl##','');
+
+    var papersFlex = document.getElementById('papersFlex');
+    papersFlex.innerHTML+=text;
+  }
+
   export default {
     data: () => ({
       title: '',
       paperId:''
     }),
     methods: {
+
       createPaper() {
         try {
           this.papers.methods._createPaper(this.title).send()
@@ -61,7 +89,12 @@
       },
       qetSomePaper(){
         try{
-          this.papers.methods.getPaper(this.paperId).call().then(console.log)
+          var papersLen=2;//this.papers.methods.lenPaper().call().then(console.log);
+          var i;
+          for(i=0;i<papersLen;i++) {
+            this.papers.methods.getPaper(i).call().then(showPaper);
+          }
+
         }
         catch(e){
           console.error(e)
