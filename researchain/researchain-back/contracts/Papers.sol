@@ -29,7 +29,7 @@ contract Papers is Ownable {
     mapping (address => uint[]) public buyersPaperIds; // all PaperId's bought by a buyer address
 
     // createPaper gets called by JavaScript with values
-    function createPaper(string memory _title, string memory _author, uint _price, string memory _hash) public {
+    function createPaper(string memory _title, string memory _author, uint _price, string memory _hash) public returns (uint, string memory, string memory, uint, string memory, address) {
         uint id = papers.push(Paper(_title, _author, _price, _hash, msg.sender)) - 1;
         paperIdToOwner[id] = msg.sender;
         ownerPaperCount[msg.sender]++;
@@ -37,10 +37,15 @@ contract Papers is Ownable {
         ownerExist[msg.sender] = true;
         numberOfPapers++;
         emit NewPaper(id, _title, _hash);
+        return getPaper(id);
     }
 
     function changePaperPrice(uint _id, uint _newPrice) public onlyOwner {
       papers[_id].price = _newPrice; // only owner can change the price of the paper
+    }
+
+    function getPapersCount() public view returns (uint) {
+        return papers.length;
     }
 
     function getPaper(uint _id) public view returns (uint, string memory, string memory, uint, string memory, address) {

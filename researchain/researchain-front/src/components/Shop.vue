@@ -90,13 +90,8 @@
 
       async createPaper() {
         try {
-          console.log(1);
-          this.paperContract.methods.createPaper(this.title, this.author, parseFloat(this.price), this.hash).send()
-            .then(res => {
-              console.log(res);
-              console.log('Paper created!');
-              this.getAllPapers();
-            });
+          this.paperContract.methods.createPaper(this.title, this.author, parseFloat(this.price), this.hash).send();
+          setTimeout(() => this.getAllPapers(), 2000);
         } catch (e) {
           console.error(e);
         }
