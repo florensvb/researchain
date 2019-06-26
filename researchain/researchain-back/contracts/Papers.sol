@@ -8,6 +8,7 @@ contract Papers is Ownable {
 
     event NewPaper(uint paperId, string title, string hash);
     event PaperBought(address buyer, uint paperId, string title, string hash);
+    event EtherTransfered(address owner, uint value);
 
     struct Paper {
         string title;
@@ -79,5 +80,6 @@ contract Papers is Ownable {
     function _withdraw(uint _id) internal onlyOwner {
       address payable owner = papers[_id].owner;
       owner.transfer(address(this).balance);
+      emit EtherTransfered(owner, address(this).balance);
     }
 }
