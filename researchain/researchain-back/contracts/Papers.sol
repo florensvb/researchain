@@ -66,8 +66,6 @@ contract Papers is Ownable {
     function buyPaper(uint _id) external payable {
       require(numberOfPapers > _id, "paper id does not exist!");
       require(msg.value >= papers[_id].price, "not sufficient funds added to buyPaper function call!");
-      require(msg.sender != papers[_id].owner, "you cant buy a paper from yourself");
-      require(buyersPaperIds[msg.sender][_id] == 0, "you already own that paper");
 
       // caller sends value to contract according papers[id].price
       bool transferConfirmed = msg.sender.send(papers[_id].price);

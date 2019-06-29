@@ -99,7 +99,7 @@
         try {
           this.loading = true;
           this.paperContract.methods.createPaper(this.title, this.author, parseFloat(this.price), this.hash).send()
-            .on('receipt', () => {
+            .on('transactionHash', () => {
               this.snackbarText = `Congratulations on adding ${this.title} by ${this.author}`;
               this.snackbar = true;
               this.loading = false;

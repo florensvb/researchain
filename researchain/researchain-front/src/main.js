@@ -19,12 +19,33 @@ const initweb3 = async () => {
       const accounts = await window.ethereum.enable();
       web3.defaultAccount = accounts[0];
       web3.defaultAccount = accounts[0];
-      web3.defaultGas = 900000;
+      web3.defaultGas = 999999;
+      web3.defaultGasPrice = '8000000000';
       const abi = require('./ABIs/Papers.js').default;
       const papersContract = new web3.eth.Contract(abi, process.env.VUE_APP_ADDRESS);
       papersContract.options.address = process.env.VUE_APP_ADDRESS;
       Vue.prototype.paperContract = papersContract;
       Vue.prototype.web3 = web3;
+
+      Vue.use(VueRouter);
+
+      Vue.config.productionTip = false;
+
+      const routes = [
+        { path: '/', component: require('./components/LandingPage').default },
+        { path: '/shop', component: require('./components/Shop').default },
+        { path: '/my-papers', component: require('./components/MyPapers').default },
+        { path: '/add-paper', component: require('./components/AddPaper').default },
+      ];
+
+      const router = new VueRouter({
+        routes,
+      });
+
+      new Vue({
+        router,
+        render: h => h(App),
+      }).$mount('#app');
 
       window.ethereum.on('accountsChanged', function () {
         window.location.reload();
@@ -38,23 +59,3 @@ const initweb3 = async () => {
 };
 
 initweb3().catch(console.error);
-
-Vue.use(VueRouter);
-
-Vue.config.productionTip = false;
-
-const routes = [
-  { path: '/', component: require('./components/LandingPage').default },
-  { path: '/shop', component: require('./components/Shop').default },
-  { path: '/my-papers', component: require('./components/MyPapers').default },
-  { path: '/add-paper', component: require('./components/AddPaper').default },
-];
-
-const router = new VueRouter({
-  routes,
-});
-
-new Vue({
-  router,
-  render: h => h(App),
-}).$mount('#app');

@@ -84,7 +84,7 @@
       async buyPaper(id, price, title, author) {
         this.loading = true;
         this.paperContract.methods.buyPaper(id).send({ value: this.web3.utils.toWei(price.toString(), "ether")})
-          .on('receipt', () => {
+          .on('transactionHash', () => {
             this.snackbarText = `Congratulations on buying ${title} by ${author}`;
             this.snackbar = true;
             this.loading = false;
