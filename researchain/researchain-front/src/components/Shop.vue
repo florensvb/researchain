@@ -20,6 +20,13 @@
             <div>Author: {{paper[2]}}</div>
             <div>Price: {{paper[3]}}</div>
           </v-card-text>
+          <v-card-actions>
+            <v-flex xs12>
+              <v-btn color="teal accent-4" @click="buyPaper(paper[0], paper[3])">
+                <v-icon>shopping_cart</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-card-actions>
         </v-card>
       </v-flex>
       <v-flex xs12>
@@ -57,6 +64,9 @@
               .then(paper => this.papers.push(paper));
           }
         });
+      },
+      async buyPaper(id, price) {
+        return this.paperContract.methods.buyPaper(id).send({ value: this.web3.utils.toWei(price.toString(), "ether")});
       },
     },
     async created() {

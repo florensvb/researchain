@@ -19,7 +19,7 @@ const abi = require('./ABIs/Papers.js').default;
 const papersContract = new web3.eth.Contract(abi, process.env.VUE_APP_ADDRESS);
 papersContract.options.address = process.env.VUE_APP_ADDRESS;
 Vue.prototype.paperContract = papersContract;
-
+Vue.prototype.web3 = web3;
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
