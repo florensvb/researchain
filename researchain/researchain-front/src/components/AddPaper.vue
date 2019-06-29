@@ -65,7 +65,7 @@
         bottom
         :timeout="6000"
       >
-        Congratulations, your paper has been uploaded!
+        {{ snackbarText }}
         <v-btn
           color="pink"
           flat
@@ -87,6 +87,7 @@
       hash: '',
       loading: false,
       snackbar: false,
+      snackbarText: '',
     }),
     computed: {
       validInput() {
@@ -97,11 +98,18 @@
       async createPaper() {
         try {
           this.loading = true;
-          this.paperContract.methods.createPaper(this.title, this.author, parseFloat(this.price), this.hash).send();
-          setTimeout(() => {
-            this.loading = false;
-            this.snackbar = true;
-          }, 3000);
+          this.paperContract.methods.createPaper(this.title, this.author, parseFloat(this.price), this.hash).send()
+            .on('receipt', () => {
+              this.snackbarText = `Congratulations on adding ${this.title} by ${this.author}`;
+              this.snackbar = true;
+              this.loading = false;
+            })
+            .on('error', (e) => {
+              this.snackbarText = 'Something went wrong 😑';
+              this.snackbar = true;
+              this.loading = false;
+              console.error(e);
+            });
         } catch (e) {
           console.error(e);
         }
