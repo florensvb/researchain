@@ -50,7 +50,6 @@
         return this.paperContract.methods.getOwnersPapers(process.env.VUE_APP_ACCOUNT).call().then((response) => this.paperIds = response);
       },
       async getAllPapers() {
-        console.log('Getting papers');
         this.papers = [];
         this.getPaperLength().then(() => {
           for (const id of this.paperIds) {

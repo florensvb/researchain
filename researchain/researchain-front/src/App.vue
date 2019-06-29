@@ -3,9 +3,12 @@
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>Researchain</span>
-        <span class="font-weight-light"> Technische Universität Berlin</span>
+        <span class="font-weight-light"> TU Berlin</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn flat @click="$router.push('shop')">
+        <span class="mr-2">Shop</span>
+      </v-btn>
       <v-btn flat @click="$router.push('my-papers')">
         <span class="mr-2">My Papers</span>
       </v-btn>

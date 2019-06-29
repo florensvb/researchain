@@ -50,7 +50,6 @@
         return this.paperContract.methods.getPapersCount().call().then((response) => this.paperLength = response);
       },
       async getAllPapers() {
-        console.log('Getting papers');
         this.papers = [];
         this.getPaperLength().then(() => {
           for (let i = 0; i < this.paperLength; i++) {
