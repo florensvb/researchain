@@ -6,15 +6,10 @@
         <span class="font-weight-light"> Technische Universität Berlin</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/Wandlungskuenstler/Cardano-BLKCHN19"
-        target="_blank"
-      >
-        <span class="mr-2">GitHub</span>
+      <v-btn flat @click="$router.push('my-papers')">
+        <span class="mr-2">My Papers</span>
       </v-btn>
     </v-toolbar>
-
     <v-content>
       <router-view/>
     </v-content>

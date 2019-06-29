@@ -6,7 +6,7 @@
     >
       <v-flex xs12>
         <h1 class="display-2 text-xs-center font-weight-bold mb-3">
-          Available Research Papers
+          My Research Papers
         </h1>
       </v-flex>
       <v-flex xs6 v-for="paper in papers" :key="paper.id">
@@ -43,18 +43,18 @@
   export default {
     data: () => ({
       papers: [],
-      paperLength: 0,
+      paperIds: [],
     }),
     methods: {
       async getPaperLength() {
-        return this.paperContract.methods.getPapersCount().call().then((response) => this.paperLength = response);
+        return this.paperContract.methods.getOwnersPapers(process.env.VUE_APP_ACCOUNT).call().then((response) => this.paperIds = response);
       },
       async getAllPapers() {
         console.log('Getting papers');
         this.papers = [];
         this.getPaperLength().then(() => {
-          for (let i = 0; i < this.paperLength; i++) {
-            this.paperContract.methods.getPaper(i).call()
+          for (const id of this.paperIds) {
+            this.paperContract.methods.getPaper(id).call()
               .then(paper => this.papers.push(paper));
           }
         });

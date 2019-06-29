@@ -27,6 +27,8 @@ Vue.config.productionTip = false;
 const routes = [
   { path: '/', component: require('./components/LandingPage').default },
   { path: '/shop', component: require('./components/Shop').default },
+  { path: '/my-papers', component: require('./components/MyPapers').default },
+  { path: '/add-paper', component: require('./components/AddPaper').default },
 ];
 
 const router = new VueRouter({
