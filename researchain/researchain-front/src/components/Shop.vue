@@ -29,6 +29,9 @@
           </v-card-actions>
         </v-card>
       </v-flex>
+      <v-flex xs12 text-xs-center v-if="!papers.length">
+        {{ `Sorry, looks like there are no papers available 😢` }}
+      </v-flex>
       <v-flex xs12>
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
@@ -75,6 +78,11 @@
       async getAllPapers() {
         this.papers = [];
         this.getPaperLength().then(() => {
+          if (!this.paperLength) {
+            this.snackbarText = 'Looks like there aren\'t any papers yet 😖';
+            this.snackbar = true;
+            return;
+          }
           for (let i = 0; i < this.paperLength; i++) {
             this.paperContract.methods.getPaper(i).call()
               .then(paper => this.papers.push(paper));
