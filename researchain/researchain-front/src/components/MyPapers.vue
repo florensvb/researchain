@@ -52,7 +52,7 @@
           </v-card-text>
           <v-card-actions>
             <v-flex xs12>
-              <v-btn color="teal accent-4" @click="downloadPaper(paper[4])">
+              <v-btn color="teal accent-4" @click="downloadPaper(paper[4], true)">
                 <v-icon>cloud_download</v-icon>
               </v-btn>
             </v-flex>

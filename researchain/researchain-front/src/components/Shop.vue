@@ -53,7 +53,7 @@
         <v-btn
           color="pink"
           flat
-          @click="$router.push('shop')"
+          @click="$router.push('my-papers')"
         >
           Show me
         </v-btn>
