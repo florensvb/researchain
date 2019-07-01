@@ -66,6 +66,7 @@
   export default {
     data: () => ({
       papers: [],
+      ownedPaperIds: [],
       paperLength: 0,
       snackbar: false,
       snackbarText: '',
@@ -105,10 +106,17 @@
           });
       },
       alreadyOwn(paper) {
+        if (this.ownedPaperIds.some(x => x.toString() === paper[0].toString())) return true;
         return paper[5] === this.web3.defaultAccount;
-      }
+      },
+      async getOwnedPaperIds() {
+        return this.paperContract.methods.getBuyersPapers(this.web3.defaultAccount).call()
+          .then(response => this.ownedPaperIds = response)
+          .catch(() => {});
+      },
     },
     async created() {
+      this.getOwnedPaperIds();
       this.getAllPapers();
     }
   }

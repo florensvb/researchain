@@ -123,7 +123,7 @@
             this.snackbar = true;
           });
       },
-      async getOwnedPaperLength() {
+      async getOwnedPaperIds() {
         return this.paperContract.methods.getBuyersPapers(this.web3.defaultAccount).call()
           .then(response => this.ownedPaperIds = response)
           .catch(() => {
@@ -141,8 +141,8 @@
         });
       },
       async getAllBoughtPapers() {
-        this.papers = [];
-        this.getOwnedPaperLength().then(() => {
+        this.ownedPapers = [];
+        this.getOwnedPaperIds().then(() => {
           for (const id of this.ownedPaperIds) {
             this.paperContract.methods.getPaper(id).call()
               .then(paper => this.ownedPapers.push(paper))
