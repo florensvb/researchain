@@ -82,7 +82,7 @@ contract Papers is Ownable {
     // PaperStore needs to point to contract on Ethereum
     // JS Code:
     // PaperStore.buyPaper({from: web3.eth.defaultAccount, value: web3.utils.toWei(0.001)})
-    function _withdraw(uint _id) internal onlyOwner {
+    function _withdraw(uint _id) internal {
       address payable owner = papers[_id].owner;
       owner.transfer(address(this).balance);
       emit EtherTransfered(owner, address(this).balance);
